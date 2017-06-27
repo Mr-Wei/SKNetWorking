@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CF0FDC7C899285506AB3425 /* libPods-SKNetWorking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB2F5EEDF80C6D4DFECF3807 /* libPods-SKNetWorking.a */; };
 		B697F9A91F01FBE700324366 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B697F9A81F01FBE700324366 /* main.m */; };
 		B697F9AC1F01FBE700324366 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B697F9AB1F01FBE700324366 /* AppDelegate.m */; };
 		B697F9AF1F01FBE700324366 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B697F9AE1F01FBE700324366 /* ViewController.m */; };
@@ -16,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		37FD1A4252DD08A71352ED2A /* Pods-SKNetWorking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SKNetWorking.release.xcconfig"; path = "Pods/Target Support Files/Pods-SKNetWorking/Pods-SKNetWorking.release.xcconfig"; sourceTree = "<group>"; };
+		77BF726BE910E5728F48BBCE /* Pods-SKNetWorking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SKNetWorking.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SKNetWorking/Pods-SKNetWorking.debug.xcconfig"; sourceTree = "<group>"; };
 		B697F9A41F01FBE700324366 /* SKNetWorking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SKNetWorking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B697F9A81F01FBE700324366 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B697F9AA1F01FBE700324366 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -26,6 +29,7 @@
 		B697F9B31F01FBE700324366 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B697F9B61F01FBE700324366 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B697F9B81F01FBE700324366 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BB2F5EEDF80C6D4DFECF3807 /* libPods-SKNetWorking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SKNetWorking.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +37,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CF0FDC7C899285506AB3425 /* libPods-SKNetWorking.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01F59E43B89FD211632E03E6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				77BF726BE910E5728F48BBCE /* Pods-SKNetWorking.debug.xcconfig */,
+				37FD1A4252DD08A71352ED2A /* Pods-SKNetWorking.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		43BC95497B61FAB8D48D4400 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BB2F5EEDF80C6D4DFECF3807 /* libPods-SKNetWorking.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B697F99B1F01FBE600324366 = {
 			isa = PBXGroup;
 			children = (
 				B697F9A61F01FBE700324366 /* SKNetWorking */,
 				B697F9A51F01FBE700324366 /* Products */,
+				01F59E43B89FD211632E03E6 /* Pods */,
+				43BC95497B61FAB8D48D4400 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,9 +110,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B697F9BB1F01FBE700324366 /* Build configuration list for PBXNativeTarget "SKNetWorking" */;
 			buildPhases = (
+				D3E24B4C6797D79CB736B21E /* [CP] Check Pods Manifest.lock */,
 				B697F9A01F01FBE700324366 /* Sources */,
 				B697F9A11F01FBE700324366 /* Frameworks */,
 				B697F9A21F01FBE700324366 /* Resources */,
+				436C87239F378CA396AAA3BC /* [CP] Embed Pods Frameworks */,
+				9BCA98A70584B884E2A0A4ED /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -144,6 +171,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		436C87239F378CA396AAA3BC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SKNetWorking/Pods-SKNetWorking-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9BCA98A70584B884E2A0A4ED /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SKNetWorking/Pods-SKNetWorking-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D3E24B4C6797D79CB736B21E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B697F9A01F01FBE700324366 /* Sources */ = {
@@ -270,6 +345,7 @@
 		};
 		B697F9BC1F01FBE700324366 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77BF726BE910E5728F48BBCE /* Pods-SKNetWorking.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SKNetWorking/Info.plist;
@@ -281,6 +357,7 @@
 		};
 		B697F9BD1F01FBE700324366 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 37FD1A4252DD08A71352ED2A /* Pods-SKNetWorking.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SKNetWorking/Info.plist;
@@ -309,6 +386,7 @@
 				B697F9BD1F01FBE700324366 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
