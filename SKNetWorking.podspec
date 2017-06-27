@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SKNetWorking"
-  s.version      = "v0.1"
+  s.version      = "0.0.1"
   s.summary      = "基于AFNetWorking的二次封装"
 
   # This description is used to generate tags and improve search results.
