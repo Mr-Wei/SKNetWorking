@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ALPPlatformConfiguration.h"
 typedef NS_ENUM (NSUInteger, SKAPIRequestType){
     SKAPIRequestTypeGet,
     SKAPIRequestTypePost
@@ -44,8 +43,9 @@ typedef NS_ENUM (NSUInteger, SKAPIRequestType){
 /**
  转换API所需参数列表
 
- @param obj
+ @param obj 参数
  */
+
 - (void)setParam:(id)obj;
 
 /**

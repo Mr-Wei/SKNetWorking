@@ -8,8 +8,7 @@
 
 #import "SKAPIBaseManager.h"
 #import "SKAPIClient.h"
-#import "ALPReachability.h"
-#import "NSDictionary+objectForKey.h"
+#import "AFNetworkReachabilityManager.h"
 #import "SKAPICache.h"
 #define SKCallAPI(REQUEST_METHOD,REQUEST_ID)                                                   \
 {                                                                                               \
@@ -144,7 +143,7 @@
     }
     NSInteger requestId = 0;
     // 实际的网络请求
-    if ([[ALPReachability reachabilityForInternetConnection] currentReachabilityStatus]) {
+    if ([[AFNetworkReachabilityManager sharedManager] networkReachabilityStatus]) {
         //有连接
         self.isLoading = YES;
         switch (self.realManager.requestType)
@@ -172,10 +171,10 @@
 }
 
 - (id)reformDataWithReformer:(id<SKAPIDataReformer>)reformer{
-    NSInteger apistatus = [self.response.responseObject intValueForKey:@"apistatus"];
+    NSInteger apistatus = [[self.response.responseObject valueForKey:@"apistatus"]integerValue];
     if (apistatus == 1) {
-        NSDictionary *result = [self.response.responseObject dictionaryObjectForKey:@"result"];
-        _nextCursor = [result intValueForKey:@"nextCursor"];
+        NSDictionary *result = [self.response.responseObject valueForKey:@"result"];
+        _nextCursor = [[result valueForKey:@"nextCursor"]integerValue];
     }
    return [reformer reformData:self.response fromManager:self];
 }

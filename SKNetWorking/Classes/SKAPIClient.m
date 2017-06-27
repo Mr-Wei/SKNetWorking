@@ -8,11 +8,6 @@
 
 #import "SKAPIClient.h"
 #import "AFNetworking.h"
-#import "ALPLoginClient.h"
-#import "ALPReachability.h"
-//#import "WChatSDK.h"
-#import "ALPUtil.h"
-#import "SvUDIDTools.h"
 
 #ifndef ALP_X_CLIENT_ID
 #define ALP_X_CLIENT_ID @"1-20126-20ae05690aeb051608901194303f41e6-ios"
@@ -61,79 +56,7 @@
         _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain",@"image/png", @"application/octet-stream", nil];
 
     }
-    [self configHttpRequestCommonHeader];
     return _sessionManager;
-}
-- (void)configHttpRequestCommonHeader
-{
-    [_sessionManager.requestSerializer setValue:[ALPLoginClient sharedInstance].user.mAuth forHTTPHeaderField:@"Authorization"];
-    [_sessionManager.requestSerializer setValue:@"gzip,deflate" forHTTPHeaderField:@"Accept-Encoding"];
-//    [_sessionManager.requestSerializer setValue:[[WChatSDK sharedInstance] getXWVersion] forHTTPHeaderField:@"X-WVersion"];
-    //SDK版本-客户端版本-设备ID(标记设备)-设备型号(手机型号)-渠道
-    NSString *XWVersion = [NSString stringWithFormat:@"0-%@-%@-%@-AppStore", [SvUDIDTools getBundleShortVersionString], [SvUDIDTools getDeviceUUID], [SvUDIDTools DeviceModel]];
-    [_sessionManager.requestSerializer setValue:XWVersion forHTTPHeaderField:@"X-WVersion"];
-    //    [[WChatSDK sharedInstance] getXClientID]
-    [_sessionManager.requestSerializer setValue:ALP_X_CLIENT_ID forHTTPHeaderField:@"X-Client-ID"];
-    
-    //后增字段
-    [_sessionManager.requestSerializer setValue:[SvUDIDTools getDeviceUUID] forHTTPHeaderField:@"ndeviceid"];
-//    [_sessionManager.requestSerializer setValue:[WChatSDK getUDID] forHTTPHeaderField:@"ndeviceid"];
-    ALPNetworkStatus networkStatus = [[ALPReachability reachabilityForInternetConnection] currentReachabilityStatus];
-    [_sessionManager.requestSerializer setValue:[self getReeachStatus:networkStatus] forHTTPHeaderField:@"rechaStatus"];
-    //NOTE: 1、Android 2、IOS 3、H5 4、PHP 传数字
-    //    [sessionManage.requestSerializer setValue:@"2" forHTTPHeaderField:@"z-source"];
-    if ([ALPLoginClient sharedInstance].user.uid) {
-        
-        //        [sessionManage.requestSerializer setValue:@"10000003" forHTTPHeaderField:@"X-Matrix-UID"];//x-matrix-uid
-        [_sessionManager.requestSerializer setValue:[ALPLoginClient sharedInstance].user.uid forHTTPHeaderField:@"X-Matrix-UID"];//x-matrix-uid
-    }
-    _sessionManager.requestSerializer.timeoutInterval = 30;
-}
-- (NSString *)getReeachStatus:(ALPNetworkStatus)netStatus
-{
-    NSString* statusString = @"";
-    BOOL isReachable = NO;
-    switch (netStatus)
-    {
-        case kNotReachable:
-        case kReachableViaWWAN:
-        {
-            statusString = @"";
-            isReachable = NO;
-            break;
-        }
-            //        case kReachableViaWWAN:
-            //        {
-            //            statusString = @"WWAN";
-            //            isReachable = YES;
-            //            break;
-            //        }
-        case kReachableVia2G:
-        {
-            statusString = @"2G";
-            isReachable = YES;
-            break;
-        }
-        case kReachableVia3G:
-        {
-            statusString = @"3G";
-            isReachable = YES;
-            break;
-        }
-        case kRaeachableVia4G:
-        {
-            statusString = @"4G";
-            isReachable = YES;
-            break;
-        }
-        case kReachableViaWiFi:
-        {
-            statusString= @"WIFI";
-            isReachable = YES;
-            break;
-        }
-    }
-    return statusString;
 }
 //根据参数生成Request请求,目前还是使用AFNetworking的方法
 - (NSInteger)callGETWithParams:(NSDictionary*)apiParams host:(NSString*)hostName methodName:(NSString*)methodName success:(SKAPICallback)success fail:(SKAPICallback)fail{
@@ -197,18 +120,6 @@
                     fail(SKResponse);
                 }
             } else {
-                //接口访问成功(后续验证数据有效性)
-                NSString *errorCode = [responseObject stringObjectForKey:@"errorCode"];
-                if ([errorCode isEqualToString:@"10002"]) {
-                    [[ALPMessageManage instance]kickOff:@"账号已经在其它设备登录，请重试"];
-                }
-                if(errorCode){
-                    if(!self.errorCodeDic[errorCode]){
-                        [ALPUtil toastMsg:responseObject[@"errorMsg"]];
-                    }
-                }else{
-                    
-            	    }
                 if (success) {
                     success(SKResponse);
                 }

@@ -169,6 +169,7 @@
 				TargetAttributes = {
 					B697F9A31F01FBE700324366 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = PFEVE4UYXY;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -384,6 +385,7 @@
 			baseConfigurationReference = 77BF726BE910E5728F48BBCE /* Pods-SKNetWorking.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = PFEVE4UYXY;
 				INFOPLIST_FILE = SKNetWorking/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wei.SKNetWorking;
@@ -396,6 +398,7 @@
 			baseConfigurationReference = 37FD1A4252DD08A71352ED2A /* Pods-SKNetWorking.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = PFEVE4UYXY;
 				INFOPLIST_FILE = SKNetWorking/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wei.SKNetWorking;
