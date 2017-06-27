@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		2CF0FDC7C899285506AB3425 /* libPods-SKNetWorking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB2F5EEDF80C6D4DFECF3807 /* libPods-SKNetWorking.a */; };
+		B64349F01F024A3400B3E1F7 /* SKAPIBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B64349E71F024A3400B3E1F7 /* SKAPIBaseManager.m */; };
+		B64349F11F024A3400B3E1F7 /* SKAPICache.m in Sources */ = {isa = PBXBuildFile; fileRef = B64349E91F024A3400B3E1F7 /* SKAPICache.m */; };
+		B64349F21F024A3400B3E1F7 /* SKAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = B64349EB1F024A3400B3E1F7 /* SKAPIClient.m */; };
+		B64349F31F024A3400B3E1F7 /* SKAPIResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B64349EF1F024A3400B3E1F7 /* SKAPIResponse.m */; };
 		B697F9A91F01FBE700324366 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B697F9A81F01FBE700324366 /* main.m */; };
 		B697F9AC1F01FBE700324366 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B697F9AB1F01FBE700324366 /* AppDelegate.m */; };
 		B697F9AF1F01FBE700324366 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B697F9AE1F01FBE700324366 /* ViewController.m */; };
@@ -19,6 +23,16 @@
 /* Begin PBXFileReference section */
 		37FD1A4252DD08A71352ED2A /* Pods-SKNetWorking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SKNetWorking.release.xcconfig"; path = "Pods/Target Support Files/Pods-SKNetWorking/Pods-SKNetWorking.release.xcconfig"; sourceTree = "<group>"; };
 		77BF726BE910E5728F48BBCE /* Pods-SKNetWorking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SKNetWorking.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SKNetWorking/Pods-SKNetWorking.debug.xcconfig"; sourceTree = "<group>"; };
+		B64349E61F024A3400B3E1F7 /* SKAPIBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKAPIBaseManager.h; sourceTree = "<group>"; };
+		B64349E71F024A3400B3E1F7 /* SKAPIBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKAPIBaseManager.m; sourceTree = "<group>"; };
+		B64349E81F024A3400B3E1F7 /* SKAPICache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKAPICache.h; sourceTree = "<group>"; };
+		B64349E91F024A3400B3E1F7 /* SKAPICache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKAPICache.m; sourceTree = "<group>"; };
+		B64349EA1F024A3400B3E1F7 /* SKAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKAPIClient.h; sourceTree = "<group>"; };
+		B64349EB1F024A3400B3E1F7 /* SKAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKAPIClient.m; sourceTree = "<group>"; };
+		B64349EC1F024A3400B3E1F7 /* SKAPIDataReformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKAPIDataReformer.h; sourceTree = "<group>"; };
+		B64349ED1F024A3400B3E1F7 /* SKAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKAPIManager.h; sourceTree = "<group>"; };
+		B64349EE1F024A3400B3E1F7 /* SKAPIResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKAPIResponse.h; sourceTree = "<group>"; };
+		B64349EF1F024A3400B3E1F7 /* SKAPIResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKAPIResponse.m; sourceTree = "<group>"; };
 		B697F9A41F01FBE700324366 /* SKNetWorking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SKNetWorking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B697F9A81F01FBE700324366 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B697F9AA1F01FBE700324366 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -61,6 +75,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B64349E51F0249C300B3E1F7 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				B64349E61F024A3400B3E1F7 /* SKAPIBaseManager.h */,
+				B64349E71F024A3400B3E1F7 /* SKAPIBaseManager.m */,
+				B64349E81F024A3400B3E1F7 /* SKAPICache.h */,
+				B64349E91F024A3400B3E1F7 /* SKAPICache.m */,
+				B64349EA1F024A3400B3E1F7 /* SKAPIClient.h */,
+				B64349EB1F024A3400B3E1F7 /* SKAPIClient.m */,
+				B64349EC1F024A3400B3E1F7 /* SKAPIDataReformer.h */,
+				B64349ED1F024A3400B3E1F7 /* SKAPIManager.h */,
+				B64349EE1F024A3400B3E1F7 /* SKAPIResponse.h */,
+				B64349EF1F024A3400B3E1F7 /* SKAPIResponse.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		B697F99B1F01FBE600324366 = {
 			isa = PBXGroup;
 			children = (
@@ -82,6 +113,7 @@
 		B697F9A61F01FBE700324366 /* SKNetWorking */ = {
 			isa = PBXGroup;
 			children = (
+				B64349E51F0249C300B3E1F7 /* Classes */,
 				B697F9AA1F01FBE700324366 /* AppDelegate.h */,
 				B697F9AB1F01FBE700324366 /* AppDelegate.m */,
 				B697F9AD1F01FBE700324366 /* ViewController.h */,
@@ -225,9 +257,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B64349F11F024A3400B3E1F7 /* SKAPICache.m in Sources */,
 				B697F9AF1F01FBE700324366 /* ViewController.m in Sources */,
 				B697F9AC1F01FBE700324366 /* AppDelegate.m in Sources */,
 				B697F9A91F01FBE700324366 /* main.m in Sources */,
+				B64349F01F024A3400B3E1F7 /* SKAPIBaseManager.m in Sources */,
+				B64349F21F024A3400B3E1F7 /* SKAPIClient.m in Sources */,
+				B64349F31F024A3400B3E1F7 /* SKAPIResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
