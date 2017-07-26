@@ -7,7 +7,7 @@
 //
 
 #import "SKAPIClient.h"
-
+#import "AFNetworking.h"
 
 #ifndef ALP_X_CLIENT_ID
 #define ALP_X_CLIENT_ID @"1-20126-20ae05690aeb051608901194303f41e6-ios"

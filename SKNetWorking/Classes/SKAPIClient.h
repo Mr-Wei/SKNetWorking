@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SKAPIResponse.h"
-#import "AFNetworking.h"
+@protocol AFMultipartFormData;
 typedef void(^SKAPICallback)(SKAPIResponse *response);
 typedef void(^SKAPIProgress)(NSProgress *progress);
 @interface SKAPIClient : NSObject
