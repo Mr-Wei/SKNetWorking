@@ -66,4 +66,9 @@ typedef NS_ENUM (NSUInteger, SKAPIRequestType){
  */
 - (void)formData:(id<AFMultipartFormData>)formData;
 
+/**
+  通用参数
+ */
+- (NSDictionary *)commonParam;
+
 @end

@@ -120,6 +120,12 @@
     if(self.paramSource&&[self.paramSource respondsToSelector:@selector(param:)]){
         apiParams = [self.paramSource param:self];
     }
+    if ([self.realManager respondsToSelector:@selector(commonParam)]) {
+        NSDictionary *commonParam = [self.realManager commonParam];
+        NSMutableDictionary *newParam = [NSMutableDictionary dictionaryWithDictionary:apiParams];
+        [newParam addEntriesFromDictionary:commonParam];
+        apiParams = newParam;
+    }
     if ([self.realManager respondsToSelector:@selector(shouldCache)]&&[self.realManager shouldCache]) {
         id response = [self.cache objectForHost:[self.realManager host] methodName:[self.realManager methodName] Param:apiParams];
         if (response) {
@@ -132,7 +138,6 @@
         }
     }
     [self runWithParam:apiParams];
-
 }
 - (void)loadMore{
     self.isMore = YES;
