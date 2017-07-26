@@ -13,7 +13,10 @@
 #define SKCallAPI(REQUEST_METHOD,REQUEST_ID)                                                   \
 {                                                                                               \
     __weak typeof(self) weakSelf = self;                                                        \
-    REQUEST_ID =[[SKAPIClient sharedInstance] call##REQUEST_METHOD##WithParams:apiParams host:self.realManager.host methodName:self.realManager.methodName success:^(SKAPIResponse *response) {\
+    REQUEST_ID =[[SKAPIClient sharedInstance] call##REQUEST_METHOD##WithParams:apiParams host:self.realManager.host methodName:self.realManager.methodName constructingBodyWithBlock:self.formDataBlock progress:^(NSProgress *theProgress) {\
+        __strong typeof(weakSelf) strongSelf = weakSelf;\
+        [strongSelf requestProgress:theProgress];\
+    } success:^(SKAPIResponse *response) {\
         __strong typeof(weakSelf) strongSelf = weakSelf;\
         [strongSelf requestSuccess:response];\
     } fail:^(SKAPIResponse *response) {\
@@ -31,6 +34,7 @@
 @property (nonatomic, strong) SKAPICache *cache;
 @property (nonatomic, assign) BOOL hasCache;
 @property (nonatomic, assign) NSInteger nextCursor;
+@property (nonatomic, copy) void(^formDataBlock)(id <AFMultipartFormData> formData);
 @end
 @implementation SKAPIBaseManager
 - (instancetype)init
@@ -73,6 +77,17 @@
 -(SKAPICache *)cache{
     return [SKAPICache sharedCache];
 }
+-(void (^)(id<AFMultipartFormData>))formDataBlock{
+    if ([self.realManager respondsToSelector:@selector(formData:)]) {
+        return  ^(id<AFMultipartFormData> formData) {
+            [self.realManager formData:formData];
+        };
+    }
+    return nil;
+}
+
+
+
 - (void)cancelAllRequests
 {
     [[SKAPIClient sharedInstance] cancelRequestWithRequestIDList:self.requestIdCache];
@@ -152,8 +167,10 @@
                 SKCallAPI(GET, requestId);
                 
                 break;
-            case SKAPIRequestTypePost:
+            case SKAPIRequestTypePost:{
                 SKCallAPI(POST, requestId);
+            }
+                
                 break;
             default:
                 break;
@@ -202,6 +219,12 @@
     }
     if (self.delegate&&[self.delegate respondsToSelector:@selector(APIDidFailed:)]) {
         [self.delegate APIDidFailed:self];
+    }
+}
+- (void)requestProgress:(NSProgress*)progress{
+
+    if (self.delegate&&[self.delegate respondsToSelector:@selector(APIDidFailed:)]) {
+        [self.delegate API:self didProgress:progress];
     }
 }
 @end

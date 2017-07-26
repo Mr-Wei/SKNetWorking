@@ -15,6 +15,7 @@
 - (void)APIDidSuccess:(SKAPIBaseManager *)manager;
 @optional
 - (void)APIDidFailed:(SKAPIBaseManager *)manager;
+- (void)API:(SKAPIBaseManager *)manager didProgress:(NSProgress*)progress;
 - (void)APINoMoreData;
 @end
 @protocol SKAPIParamSource <NSObject>
@@ -31,6 +32,9 @@
 @property (nonatomic, strong) SKAPIResponse *response;
 @property (nonatomic, assign, readonly) BOOL isLoading;
 @property (nonatomic, assign, readonly) BOOL isMore;
+
+
+
 - (void)run;
 - (void)runWithParam:(NSDictionary*)param;
 - (void)loadMore;

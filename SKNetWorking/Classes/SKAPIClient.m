@@ -7,7 +7,7 @@
 //
 
 #import "SKAPIClient.h"
-#import "AFNetworking.h"
+
 
 #ifndef ALP_X_CLIENT_ID
 #define ALP_X_CLIENT_ID @"1-20126-20ae05690aeb051608901194303f41e6-ios"
@@ -59,19 +59,27 @@
     return _sessionManager;
 }
 //根据参数生成Request请求,目前还是使用AFNetworking的方法
-- (NSInteger)callGETWithParams:(NSDictionary*)apiParams host:(NSString*)hostName methodName:(NSString*)methodName success:(SKAPICallback)success fail:(SKAPICallback)fail{
+- (NSInteger)callGETWithParams:(NSDictionary*)apiParams host:(NSString*)hostName methodName:(NSString*)methodName constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block progress:(SKAPIProgress)progress success:(SKAPICallback)success fail:(SKAPICallback)fail{
     return [self requestWithParams:apiParams HTTPMethod:@"GET" host:hostName
-                        methodName:methodName success:success fail:fail];
+                        methodName:methodName constructingBodyWithBlock:block progress:progress success:success fail:fail];
 }
-- (NSInteger)callPOSTWithParams:(NSDictionary*)apiParams host:(NSString*)hostName methodName:(NSString*)methodName success:(SKAPICallback)success fail:(SKAPICallback)fail{
+- (NSInteger)callPOSTWithParams:(NSDictionary*)apiParams host:(NSString*)hostName methodName:(NSString*)methodName constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block progress:(SKAPIProgress)progress success:(SKAPICallback)success fail:(SKAPICallback)fail{
     return [self requestWithParams:apiParams HTTPMethod:@"POST" host:hostName
-                        methodName:methodName success:success fail:fail];
+                        methodName:methodName constructingBodyWithBlock:block progress:progress success:success fail:fail];
 }
-- (NSInteger)requestWithParams:(NSDictionary*)apiParams HTTPMethod:(NSString*)httpMethod host:(NSString*)hostName methodName:(NSString*)methodName success:(SKAPICallback)success fail:(SKAPICallback)fail{
+- (NSInteger)requestWithParams:(NSDictionary*)apiParams HTTPMethod:(NSString*)httpMethod host:(NSString*)hostName methodName:(NSString*)methodName constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block progress:(SKAPIProgress)progress success:(SKAPICallback)success fail:(SKAPICallback)fail{
     NSError *serializationError = nil;
+    NSNumber *requestId;
     NSString *urlString = [NSString stringWithFormat:@"%@%@", hostName, methodName];
-    NSMutableURLRequest *request = [self.sessionManager.requestSerializer requestWithMethod:httpMethod URLString:urlString parameters:apiParams error:&serializationError];
-    NSNumber *requestId = [self callApiWithRequest:request success:success fail:fail];
+    NSMutableURLRequest *request;
+    if (!block) {
+        request = [self.sessionManager.requestSerializer requestWithMethod:httpMethod URLString:urlString parameters:apiParams error:&serializationError];
+        requestId = [self callApiWithRequest:request success:success fail:fail];
+    }else{
+        request = [self.sessionManager.requestSerializer multipartFormRequestWithMethod:httpMethod URLString:urlString  parameters:apiParams constructingBodyWithBlock:block error:&serializationError];
+        requestId = [self callUploadWithRequest:request progress:progress success:success fail:fail];
+    }
+    
     return [requestId integerValue];
     
     
@@ -97,6 +105,7 @@
  3.toast的黑白名单逻辑也可以提出(好像跟2没什么区别,手动滑稽)
  4.如果更换网络框架只需要改这一个方法就可以了
  5.基于网络请求的埋点也可以放在这里
+ 6.文件上传类的请求需要再写一个方法,暂时无优化方案
  @param request API请求
  @param success 成功回调
  @param fail 失败回调
@@ -133,5 +142,32 @@
     
     return requestId;
 }
-
+- (NSNumber *)callUploadWithRequest:(NSURLRequest *)request progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock success:(SKAPICallback)success fail:(SKAPICallback)fail{
+    __block NSURLSessionDataTask *task = [self.sessionManager uploadTaskWithStreamedRequest:request progress:^(NSProgress * _Nonnull uploadProgress) {
+        if (uploadProgressBlock) {
+            uploadProgressBlock(uploadProgress);
+        }
+    } completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        NSNumber *requestID = @([task taskIdentifier]);
+        [self.requestCache removeObjectForKey:requestID];
+        //设想此处应有一个response接收类
+        SKAPIResponse *SKResponse = [[SKAPIResponse alloc]initWithRequestID:requestID.integerValue request:request response:responseObject error:error];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (error) {
+                //接口访问失败
+                if (fail) {
+                    fail(SKResponse);
+                }
+            } else {
+                if (success) {
+                    success(SKResponse);
+                }
+            }
+        });
+    }];
+    NSNumber *requestId = @([task taskIdentifier]);
+    self.requestCache[requestId] = task;
+    [task resume];
+    return requestId;
+}
 @end
