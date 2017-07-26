@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AFNetworking.h"
+@protocol AFMultipartFormData;
 typedef NS_ENUM (NSUInteger, SKAPIRequestType){
     SKAPIRequestTypeGet,
     SKAPIRequestTypePost
