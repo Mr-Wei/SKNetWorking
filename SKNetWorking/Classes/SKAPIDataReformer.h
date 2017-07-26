@@ -1,9 +1,9 @@
 //
 //  SKAPIDataReformer.h
-//  AllLivePlayer
+//  
 //
 //  Created by Wei on 17/3/7.
-//  Copyright © 2017年 hzky. All rights reserved.
+//  Copyright © 2017年 Wei. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

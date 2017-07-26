@@ -1,9 +1,9 @@
 //
 //  SKAPIResponse.m
-//  AllLivePlayer
+//  
 //
 //  Created by Wei on 17/2/27.
-//  Copyright © 2017年 hzky. All rights reserved.
+//  Copyright © 2017年 Wei. All rights reserved.
 //
 
 #import "SKAPIResponse.h"

@@ -1,9 +1,9 @@
 //
 //  SKAPICache.m
-//  AllLivePlayer
+//  
 //
 //  Created by Wei on 2017/5/18.
-//  Copyright © 2017年 hzky. All rights reserved.
+//  Copyright © 2017年 Wei. All rights reserved.
 //
 
 #import "SKAPICache.h"
