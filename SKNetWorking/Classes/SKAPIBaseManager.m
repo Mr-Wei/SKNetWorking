@@ -161,6 +161,13 @@
     if (self.isLoading) {
         return;
     }
+    if ([self.realManager respondsToSelector:@selector(customHeader)]) {
+        [[SKAPIClient sharedInstance]setCustomHeader:[self.realManager customHeader]];
+    }else{
+        if ([self.realManager respondsToSelector:@selector(commonHeader)]) {
+            [[SKAPIClient sharedInstance]setCommonHeader:[self.realManager commonHeader]];
+        }
+    }
     NSInteger requestId = 0;
     // 实际的网络请求
     if ([[AFNetworkReachabilityManager sharedManager] networkReachabilityStatus]) {

@@ -71,4 +71,14 @@ typedef NS_ENUM (NSUInteger, SKAPIRequestType){
  */
 - (NSDictionary *)commonParam;
 
+/**
+ 通用Header
+ */
+- (NSDictionary *)commonHeader;
+
+/**
+ 定制Header
+ */
+- (NSDictionary *)customHeader;
+
 @end

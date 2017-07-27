@@ -9,12 +9,6 @@
 #import "SKAPIClient.h"
 #import "AFNetworking.h"
 
-#ifndef ALP_X_CLIENT_ID
-#define ALP_X_CLIENT_ID @"1-20126-20ae05690aeb051608901194303f41e6-ios"
-#endif
-#ifndef ALP_RTMP_HOST
-#define ALP_RTMP_HOST  @"192.168.33.155"
-#endif
 
 
 @interface SKAPIClient ()
@@ -22,6 +16,7 @@
 @property (nonatomic, strong) NSDictionary *errorCodeDic;
 //AFNetworking (可更换其他网络框架)
 @property (nonatomic, strong) AFHTTPSessionManager *sessionManager;
+@property (nonatomic, assign) BOOL headerCustom;
 @end
 @implementation SKAPIClient
 #pragma mark - life cycle
@@ -58,6 +53,30 @@
     }
     return _sessionManager;
 }
+- (void)setCommonHeader:(NSDictionary *)header{
+    if (self.headerCustom) {
+        NSArray *keys = [header allKeys];
+        for (NSString *key in keys) {
+            NSString* value = [header valueForKey:key];
+            if (value) {
+                [self.sessionManager.requestSerializer setValue:value forHTTPHeaderField:key];
+            }
+        }
+        self.headerCustom = NO;
+    }
+}
+- (void)setCustomHeader:(NSDictionary *)header{
+    NSArray *keys = [header allKeys];
+    for (NSString *key in keys) {
+        NSString* value = [header valueForKey:key];
+        if (value) {
+            [self.sessionManager.requestSerializer setValue:value forHTTPHeaderField:key];
+        }
+    }
+    self.headerCustom = YES;
+}
+
+
 //根据参数生成Request请求,目前还是使用AFNetworking的方法
 - (NSInteger)callGETWithParams:(NSDictionary*)apiParams host:(NSString*)hostName methodName:(NSString*)methodName constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block progress:(SKAPIProgress)progress success:(SKAPICallback)success fail:(SKAPICallback)fail{
     return [self requestWithParams:apiParams HTTPMethod:@"GET" host:hostName

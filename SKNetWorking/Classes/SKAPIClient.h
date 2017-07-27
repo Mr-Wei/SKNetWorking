@@ -19,4 +19,7 @@ typedef void(^SKAPIProgress)(NSProgress *progress);
 
 - (void)cancelRequestWithRequestID:(NSNumber *)requestID;
 - (void)cancelRequestWithRequestIDList:(NSArray *)requestIDList;
+
+- (void)setCommonHeader:(NSDictionary *)header;
+- (void)setCustomHeader:(NSDictionary *)header;
 @end
