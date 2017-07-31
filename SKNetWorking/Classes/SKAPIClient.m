@@ -163,9 +163,11 @@
 }
 - (NSNumber *)callUploadWithRequest:(NSURLRequest *)request progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock success:(SKAPICallback)success fail:(SKAPICallback)fail{
     __block NSURLSessionDataTask *task = [self.sessionManager uploadTaskWithStreamedRequest:request progress:^(NSProgress * _Nonnull uploadProgress) {
-        if (uploadProgressBlock) {
-            uploadProgressBlock(uploadProgress);
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (uploadProgressBlock) {
+                uploadProgressBlock(uploadProgress);
+            }
+        });
     } completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         NSNumber *requestID = @([task taskIdentifier]);
         [self.requestCache removeObjectForKey:requestID];
