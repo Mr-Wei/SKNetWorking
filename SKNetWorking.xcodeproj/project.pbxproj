@@ -19,6 +19,7 @@
 		B697F9B21F01FBE700324366 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B697F9B01F01FBE700324366 /* Main.storyboard */; };
 		B697F9B41F01FBE700324366 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B697F9B31F01FBE700324366 /* Assets.xcassets */; };
 		B697F9B71F01FBE700324366 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B697F9B51F01FBE700324366 /* LaunchScreen.storyboard */; };
+		B6B2EA9D1F341CF90099A079 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = B6B2EA9C1F341CF90099A079 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		B697F9B31F01FBE700324366 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B697F9B61F01FBE700324366 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B697F9B81F01FBE700324366 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B6B2EA9C1F341CF90099A079 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		BB2F5EEDF80C6D4DFECF3807 /* libPods-SKNetWorking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SKNetWorking.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -115,6 +117,7 @@
 		B697F9A61F01FBE700324366 /* SKNetWorking */ = {
 			isa = PBXGroup;
 			children = (
+				B6B2EA9C1F341CF90099A079 /* README.md */,
 				B64349F61F02657B00B3E1F7 /* SKNetWorking.podspec */,
 				B64349E51F0249C300B3E1F7 /* Classes */,
 				B697F9AA1F01FBE700324366 /* AppDelegate.h */,
@@ -271,6 +274,7 @@
 				B697F9A91F01FBE700324366 /* main.m in Sources */,
 				B64349F01F024A3400B3E1F7 /* SKAPIBaseManager.m in Sources */,
 				B64349F21F024A3400B3E1F7 /* SKAPIClient.m in Sources */,
+				B6B2EA9D1F341CF90099A079 /* README.md in Sources */,
 				B64349F31F024A3400B3E1F7 /* SKAPIResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
