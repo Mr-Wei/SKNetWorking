@@ -42,15 +42,12 @@
     self = [super init];
     if (self) {
         _delegate = nil;
-        
         if ([self conformsToProtocol:@protocol(SKAPIManager)]) {
             self.realManager = (id <SKAPIManager>)self;
         } else {
             NSAssert(NO, @"子类必须要实现SKAPIManager这个协议");
         }
     }
-    
-    
     return self;
 
     
@@ -141,18 +138,22 @@
 }
 - (void)loadMore{
     self.isMore = YES;
-    if (_nextCursor == -1) {
-        if (self.delegate&&[self.delegate respondsToSelector:@selector(APINoMoreData)]) {
-            [self.delegate APINoMoreData];
+    NSDictionary *pagingParam;
+    if (self.paramSource &&[self.paramSource respondsToSelector:@selector(pagingParam:)]) {
+        pagingParam = [self.paramSource pagingParam:self];
+        if (!pagingParam) {
+            if (self.delegate&&[self.delegate respondsToSelector:@selector(APINoMoreData)]) {
+                [self.delegate APINoMoreData];
+            }
+            return;
         }
-        return;
     }
-    NSDictionary *apiParams;
+    NSMutableDictionary *apiParams;
     if(self.paramSource&&[self.paramSource respondsToSelector:@selector(param:)]){
         apiParams = [[self.paramSource param:self] mutableCopy];
     }
-    if (_nextCursor>0) {
-        [apiParams setValue:@(_nextCursor) forKey:@"cursor"];
+    if (pagingParam) {
+        [apiParams addEntriesFromDictionary:pagingParam];
     }
     [self runWithParam:apiParams];
 
@@ -161,12 +162,12 @@
     if (self.isLoading) {
         return;
     }
+    if ([self.realManager respondsToSelector:@selector(commonHeader)]) {
+        [[SKAPIClient sharedInstance]setCommonHeader:[self.realManager commonHeader]];
+    }
+
     if ([self.realManager respondsToSelector:@selector(customHeader)]) {
         [[SKAPIClient sharedInstance]setCustomHeader:[self.realManager customHeader]];
-    }else{
-        if ([self.realManager respondsToSelector:@selector(commonHeader)]) {
-            [[SKAPIClient sharedInstance]setCommonHeader:[self.realManager commonHeader]];
-        }
     }
     NSInteger requestId = 0;
     // 实际的网络请求
@@ -199,14 +200,6 @@
     }
 }
 
-- (id)reformDataWithReformer:(id<SKAPIDataReformer>)reformer{
-    NSInteger apistatus = [[self.response.responseObject valueForKey:@"apistatus"]integerValue];
-    if (apistatus == 1) {
-        NSDictionary *result = [self.response.responseObject valueForKey:@"result"];
-        _nextCursor = [[result valueForKey:@"nextCursor"]integerValue];
-    }
-   return [reformer reformData:self.response fromManager:self];
-}
 - (void)requestSuccess:(SKAPIResponse*)response{
     self.isLoading = NO;
     self.response = response;

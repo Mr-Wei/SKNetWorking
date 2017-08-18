@@ -21,7 +21,22 @@
 @end
 @protocol SKAPIParamSource <NSObject>
 @optional
-- (NSDictionary*)param:(SKAPIBaseManager *)manager;
+
+/**
+ 接口参数
+
+ @param manager 接口
+ @return 参数字典
+ */
+- (NSDictionary *)param:(SKAPIBaseManager *)manager;
+
+/**
+ 接口翻页参数
+
+ @param manager manager
+ @return 翻页参数字典
+ */
+- (NSDictionary *)pagingParam:(SKAPIBaseManager*)manager;
 - (NSData*)fileData:(SKAPIBaseManager *)manager;
 @end
 
@@ -40,5 +55,5 @@
 - (void)run;
 - (void)runWithParam:(NSDictionary*)param;
 - (void)loadMore;
-- (id)reformDataWithReformer:(id<SKAPIDataReformer>)reformer;
+
 @end

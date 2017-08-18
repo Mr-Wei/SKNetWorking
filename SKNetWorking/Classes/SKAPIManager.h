@@ -11,9 +11,6 @@
 typedef NS_ENUM (NSUInteger, SKAPIRequestType){
     SKAPIRequestTypeGet,
     SKAPIRequestTypePost
-//,
-//    SKAPIRequestTypePut,
-//    SKAPIRequestTypeDelete
 };
 
 //manager的共同协议
@@ -29,7 +26,7 @@ typedef NS_ENUM (NSUInteger, SKAPIRequestType){
 /**
  host地址
 
- @return SKAPIHOST枚举不同的接口
+ @return API地址域名
  */
 - (NSString *)host;
 
@@ -41,14 +38,6 @@ typedef NS_ENUM (NSUInteger, SKAPIRequestType){
 - (SKAPIRequestType)requestType;
 
 @optional
-/**
- 转换API所需参数列表
-
- @param obj 参数
- */
-
-- (void)setParam:(id)obj;
-
 /**
  自行准备测试数据然后走正常的回调   不产生网络访问
  */
@@ -80,5 +69,7 @@ typedef NS_ENUM (NSUInteger, SKAPIRequestType){
  定制Header
  */
 - (NSDictionary *)customHeader;
+
+
 
 @end

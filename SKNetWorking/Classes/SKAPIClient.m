@@ -13,10 +13,8 @@
 
 @interface SKAPIClient ()
 @property (nonatomic, strong) NSMutableDictionary *requestCache;
-@property (nonatomic, strong) NSDictionary *errorCodeDic;
 //AFNetworking (可更换其他网络框架)
 @property (nonatomic, strong) AFHTTPSessionManager *sessionManager;
-@property (nonatomic, assign) BOOL headerCustom;
 @end
 @implementation SKAPIClient
 #pragma mark - life cycle
@@ -26,13 +24,6 @@
         _requestCache = [[NSMutableDictionary alloc] init];
     }
     return _requestCache;
-}
--(NSDictionary *)errorCodeDic{
-    if (_errorCodeDic == nil) {
-        NSString *errorCodeDicPath = [[NSBundle mainBundle] pathForResource:@"ALPErrorCodeTip" ofType:@"plist"];
-        _errorCodeDic = [NSDictionary dictionaryWithContentsOfFile:errorCodeDicPath];
-    }
-    return _errorCodeDic;
 }
 + (instancetype)sharedInstance
 {
@@ -54,15 +45,12 @@
     return _sessionManager;
 }
 - (void)setCommonHeader:(NSDictionary *)header{
-    if (self.headerCustom) {
-        NSArray *keys = [header allKeys];
-        for (NSString *key in keys) {
-            NSString* value = [header valueForKey:key];
-            if (value) {
-                [self.sessionManager.requestSerializer setValue:value forHTTPHeaderField:key];
-            }
+    NSArray *keys = [header allKeys];
+    for (NSString *key in keys) {
+        NSString* value = [header valueForKey:key];
+        if (value) {
+            [self.sessionManager.requestSerializer setValue:value forHTTPHeaderField:key];
         }
-        self.headerCustom = NO;
     }
 }
 - (void)setCustomHeader:(NSDictionary *)header{
@@ -73,7 +61,6 @@
             [self.sessionManager.requestSerializer setValue:value forHTTPHeaderField:key];
         }
     }
-    self.headerCustom = YES;
 }
 
 
