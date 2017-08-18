@@ -11,9 +11,10 @@
 #import "SKAPIDataReformer.h"
 @class SKAPIBaseManager,SKAPIResponse;
 @protocol SKAPIManagerDelegate <NSObject>
-@required
-- (void)APIDidSuccess:(SKAPIBaseManager *)manager;
 @optional
+
+- (void)APIDidSuccess:(SKAPIBaseManager *)manager;
+
 - (void)APIDidFailed:(SKAPIBaseManager *)manager;
 - (void)API:(SKAPIBaseManager *)manager didProgress:(NSProgress*)progress;
 - (void)APINoMoreData;
