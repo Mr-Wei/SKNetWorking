@@ -204,7 +204,7 @@
     self.isLoading = NO;
     self.response = response;
     [self removeRequestIdWithRequestID:response.requestId];
-    if ([self.realManager respondsToSelector:@selector(shouldCache)]&&[self.realManager shouldCache]) {
+    if ([self.realManager respondsToSelector:@selector(shouldCache)]&&[self.realManager shouldCache]&&self.isMore == NO) {
         NSDictionary *apiParams;
         if(self.paramSource&&[self.paramSource respondsToSelector:@selector(param:)]){
             apiParams = [[self.paramSource param:self] mutableCopy];

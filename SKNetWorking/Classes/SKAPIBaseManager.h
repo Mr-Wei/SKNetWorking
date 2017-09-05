@@ -55,5 +55,5 @@
 - (void)run;
 - (void)runWithParam:(NSDictionary*)param;
 - (void)loadMore;
-
+- (void)cancelAllRequests;
 @end
