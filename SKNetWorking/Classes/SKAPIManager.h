@@ -39,11 +39,6 @@ typedef NS_ENUM (NSUInteger, SKAPIRequestType){
 
 @optional
 /**
- 自行准备测试数据然后走正常的回调   不产生网络访问
- */
-- (void)dummyRun;
-
-/**
  标记API是否需要缓存
 
  @return BOOL

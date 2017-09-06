@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		37FD1A4252DD08A71352ED2A /* Pods-SKNetWorking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SKNetWorking.release.xcconfig"; path = "Pods/Target Support Files/Pods-SKNetWorking/Pods-SKNetWorking.release.xcconfig"; sourceTree = "<group>"; };
 		77BF726BE910E5728F48BBCE /* Pods-SKNetWorking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SKNetWorking.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SKNetWorking/Pods-SKNetWorking.debug.xcconfig"; sourceTree = "<group>"; };
+		B60EDBA01F5FDC860076C2C9 /* SKAPIAccessory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKAPIAccessory.h; sourceTree = "<group>"; };
 		B64349E61F024A3400B3E1F7 /* SKAPIBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKAPIBaseManager.h; sourceTree = "<group>"; };
 		B64349E71F024A3400B3E1F7 /* SKAPIBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKAPIBaseManager.m; sourceTree = "<group>"; };
 		B64349E81F024A3400B3E1F7 /* SKAPICache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKAPICache.h; sourceTree = "<group>"; };
@@ -90,6 +91,7 @@
 				B64349EB1F024A3400B3E1F7 /* SKAPIClient.m */,
 				B64349EC1F024A3400B3E1F7 /* SKAPIDataReformer.h */,
 				B64349ED1F024A3400B3E1F7 /* SKAPIManager.h */,
+				B60EDBA01F5FDC860076C2C9 /* SKAPIAccessory.h */,
 				B64349EE1F024A3400B3E1F7 /* SKAPIResponse.h */,
 				B64349EF1F024A3400B3E1F7 /* SKAPIResponse.m */,
 			);

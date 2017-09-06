@@ -10,6 +10,7 @@
 #import "SKAPIClient.h"
 #import "AFNetworkReachabilityManager.h"
 #import "SKAPICache.h"
+#import "SKAPIAccessory.h"
 #define SKCallAPI(REQUEST_METHOD,REQUEST_ID)                                                   \
 {                                                                                               \
     __weak typeof(self) weakSelf = self;                                                        \
@@ -170,7 +171,13 @@
         [[SKAPIClient sharedInstance]setCustomHeader:[self.realManager customHeader]];
     }
     NSInteger requestId = 0;
-    // 实际的网络请求
+    
+    BOOL hanleAccessory = [self conformsToProtocol:@protocol(SKAPIAccessory)];
+    if (hanleAccessory) {
+        if ([self.realManager respondsToSelector:@selector(apiWillRun)]&&[(id<SKAPIAccessory>)self.realManager hanleApiAccessory]) {
+            [(id<SKAPIAccessory>)self.realManager apiWillRun];
+        }
+    }
     if ([[AFNetworkReachabilityManager sharedManager] networkReachabilityStatus]) {
         //有连接
         self.isLoading = YES;
@@ -191,12 +198,17 @@
         }
         
     } else {
-        if (self.hasCache) {
-            return;
+        if (!self.hasCache) {
+            if (self.delegate&&[self.delegate respondsToSelector:@selector(APIDidFailed:)]) {
+                [self.delegate APIDidFailed:self];
+            }
         }
-        if (self.delegate&&[self.delegate respondsToSelector:@selector(APIDidFailed:)]) {
-            [self.delegate APIDidFailed:self];
+        if (hanleAccessory) {
+            if ([self.realManager respondsToSelector:@selector(apiDidFail)]&&[(id<SKAPIAccessory>)self.realManager hanleApiAccessory]) {
+                [(id<SKAPIAccessory>)self.realManager apiDidFail];
+            }
         }
+        
     }
 }
 
@@ -214,17 +226,29 @@
     if (self.delegate&&[self.delegate respondsToSelector:@selector(APIDidSuccess:)]) {
         [self.delegate APIDidSuccess:self];
     }
+    BOOL hanleAccessory = [self conformsToProtocol:@protocol(SKAPIAccessory)];
+    if (hanleAccessory) {
+        if ([self.realManager respondsToSelector:@selector(apiDidFinish)]&&[(id<SKAPIAccessory>)self.realManager hanleApiAccessory]) {
+            [(id<SKAPIAccessory>)self.realManager apiDidFinish];
+        }
+    }
 }
 - (void)requestFail:(SKAPIResponse*)response{
     self.isLoading = NO;
     self.response = response;
     [self removeRequestIdWithRequestID:response.requestId];
-    if (self.hasCache) {
-        return;
+    if (!self.hasCache) {
+        if (self.delegate&&[self.delegate respondsToSelector:@selector(APIDidFailed:)]) {
+            [self.delegate APIDidFailed:self];
+        }
     }
-    if (self.delegate&&[self.delegate respondsToSelector:@selector(APIDidFailed:)]) {
-        [self.delegate APIDidFailed:self];
+    BOOL hanleAccessory = [self conformsToProtocol:@protocol(SKAPIAccessory)];
+    if (hanleAccessory) {
+        if ([self.realManager respondsToSelector:@selector(apiDidFail)]&&[(id<SKAPIAccessory>)self.realManager hanleApiAccessory]) {
+            [(id<SKAPIAccessory>)self.realManager apiDidFail];
+        }
     }
+
 }
 - (void)requestProgress:(NSProgress*)progress{
 
