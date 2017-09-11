@@ -151,7 +151,11 @@
     }
     NSMutableDictionary *apiParams;
     if(self.paramSource&&[self.paramSource respondsToSelector:@selector(param:)]){
-        apiParams = [[self.paramSource param:self] mutableCopy];
+        apiParams = [NSMutableDictionary dictionaryWithDictionary:[self.paramSource param:self]];
+    }
+    if ([self.realManager respondsToSelector:@selector(commonParam)]) {
+        NSDictionary *commonParam = [self.realManager commonParam];
+        [apiParams addEntriesFromDictionary:commonParam];
     }
     if (pagingParam) {
         [apiParams addEntriesFromDictionary:pagingParam];
