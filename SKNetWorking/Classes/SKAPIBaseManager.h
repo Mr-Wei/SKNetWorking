@@ -14,8 +14,8 @@
 @optional
 
 - (void)APIDidSuccess:(SKAPIBaseManager *)manager;
-
 - (void)APIDidFailed:(SKAPIBaseManager *)manager;
+- (void)APIDidCached:(SKAPIBaseManager *)manager;
 - (void)API:(SKAPIBaseManager *)manager didProgress:(NSProgress*)progress;
 - (void)APINoMoreData;
 @end
@@ -37,6 +37,13 @@
  @return 翻页参数字典
  */
 - (NSDictionary *)pagingParam:(SKAPIBaseManager*)manager;
+
+/**
+ 文件上传参数
+
+ @param manager manager
+ @return 文件data
+ */
 - (NSData*)fileData:(SKAPIBaseManager *)manager;
 @end
 
@@ -53,7 +60,7 @@
 
 
 - (void)run;
-- (void)runWithParam:(NSDictionary*)param;
+- (void)run:(NSDictionary*)param;
 - (void)loadMore;
 - (void)cancelAllRequests;
 @end

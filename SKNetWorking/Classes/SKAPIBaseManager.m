@@ -131,11 +131,34 @@
             SKAPIResponse *apiResponse = [[SKAPIResponse alloc]initWithResponse:response];
             self.response = apiResponse;
             if (self.delegate&&[self.delegate respondsToSelector:@selector(APIDidSuccess:)]) {
-                [self.delegate APIDidSuccess:self];
+                [self.delegate APIDidCached:self];
             }
         }
     }
     [self runWithParam:apiParams];
+}
+-(void)run:(NSDictionary *)param{
+    self.isMore = NO;
+    NSDictionary *apiParams = param;
+    if ([self.realManager respondsToSelector:@selector(commonParam)]) {
+        NSDictionary *commonParam = [self.realManager commonParam];
+        NSMutableDictionary *newParam = [NSMutableDictionary dictionaryWithDictionary:param];
+        [newParam addEntriesFromDictionary:commonParam];
+        apiParams = newParam;
+    }
+    if ([self.realManager respondsToSelector:@selector(shouldCache)]&&[self.realManager shouldCache]) {
+        id response = [self.cache objectForHost:[self.realManager host] methodName:[self.realManager methodName] Param:apiParams];
+        if (response) {
+            self.hasCache = YES;
+            SKAPIResponse *apiResponse = [[SKAPIResponse alloc]initWithResponse:response];
+            self.response = apiResponse;
+            if (self.delegate&&[self.delegate respondsToSelector:@selector(APIDidCached:)]) {
+                [self.delegate APIDidCached:self];
+            }
+        }
+    }
+    [self runWithParam:apiParams];
+    
 }
 - (void)loadMore{
     self.isMore = YES;
