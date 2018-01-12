@@ -225,10 +225,8 @@
         }
         
     } else {
-        if (!self.hasCache) {
-            if (self.delegate&&[self.delegate respondsToSelector:@selector(APIDidFailed:)]) {
-                [self.delegate APIDidFailed:self];
-            }
+        if (self.delegate&&[self.delegate respondsToSelector:@selector(APIDidFailed:)]) {
+            [self.delegate APIDidFailed:self];
         }
         if (hanleAccessory) {
             if ([self.realManager respondsToSelector:@selector(apiDidFail)]&&[(id<SKAPIAccessory>)self.realManager hanleApiAccessory]) {
@@ -264,10 +262,8 @@
     self.isLoading = NO;
     self.response = response;
     [self removeRequestIdWithRequestID:response.requestId];
-    if (!self.hasCache) {
-        if (self.delegate&&[self.delegate respondsToSelector:@selector(APIDidFailed:)]) {
-            [self.delegate APIDidFailed:self];
-        }
+    if (self.delegate&&[self.delegate respondsToSelector:@selector(APIDidFailed:)]) {
+        [self.delegate APIDidFailed:self];
     }
     BOOL hanleAccessory = [self conformsToProtocol:@protocol(SKAPIAccessory)];
     if (hanleAccessory) {
